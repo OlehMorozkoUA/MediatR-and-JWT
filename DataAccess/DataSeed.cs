@@ -31,7 +31,7 @@ namespace DataAccess
                                         }
                                 };
 
-                foreach(var user in users)
+                foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "qazwsX123@");
                 }
