@@ -1,4 +1,5 @@
 using DataAccess;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Models.classes;
 using Repositories.classes;
 using Repositories.interfaces;
+using Services.classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +44,8 @@ namespace WebAPI
             })
             .AddEntityFrameworkStores<JWTDbContext>()
             .AddDefaultTokenProviders();
+
+            services.AddMediatR(typeof(LoginHandler).Assembly);
 
             services.AddScoped<IUserRepository, UserRepository>();
         }
