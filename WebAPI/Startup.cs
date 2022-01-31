@@ -2,12 +2,16 @@ using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Models.classes;
+using Repositories.classes;
+using Repositories.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +32,18 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddDbContext<JWTDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+                options.UseSqlServer(Configuration.GetConnectionString("JWT"));
+            }).AddIdentity<User, Role>(options =>
+            {
+
+            })
+            .AddEntityFrameworkStores<JWTDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +58,7 @@ namespace WebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
