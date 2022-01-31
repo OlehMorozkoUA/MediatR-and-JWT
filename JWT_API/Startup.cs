@@ -32,27 +32,27 @@ namespace JWT_API
         {
 
             services.AddControllers();
-            services.AddDbContext<JWTDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            //services.AddDbContext<JWTDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            //});
 
-            var builder = services.AddIdentityCore<User>();
-            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            //var builder = services.AddIdentityCore<User>();
+            //var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
 
-            identityBuilder.AddEntityFrameworkStores<JWTDbContext>();
-            identityBuilder.AddSignInManager<SignInManager<User>>();
+            //identityBuilder.AddEntityFrameworkStores<JWTDbContext>();
+            //identityBuilder.AddSignInManager<SignInManager<User>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "JWT_API v1"));
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "JWT_API v1"));
+            //}
 
             app.UseHttpsRedirection();
 
